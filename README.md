@@ -3,6 +3,6 @@
 
 ### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
+- **install laravel**
 
 
