@@ -20,8 +20,19 @@ class AuthCntroller extends Controller
         ]);
 
         return response([
-            'message' => 'Register Successfully!'
+            'message' => 'Register Successfully!',
+            'user' => $user
         ], Response::HTTP_CREATED);
+    }
+
+    public function updateProfile(Request $request){
+        $user = User::find($request->id);
+        $user->update($request->all());
+        return response([
+           'message' => 'Update User Successfully!',
+           'user' => Auth::user(),
+            ], Response::HTTP_OK);
+
     }
 
     public function login(Request $request){
