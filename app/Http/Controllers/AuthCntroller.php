@@ -27,7 +27,7 @@ class AuthCntroller extends Controller
 
     public function updateProfile(Request $request){
         $user = User::find($request->id);
-        $user->update($request->all());
+        $user->update($request->all('first_name','last_name','used_for'));
         return response([
            'message' => 'Update User Successfully!',
            'user' => Auth::user(),
