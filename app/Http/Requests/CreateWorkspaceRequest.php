@@ -9,6 +9,7 @@ class CreateWorkspaceRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'workspace' => ['string']
         ];
     }
 
