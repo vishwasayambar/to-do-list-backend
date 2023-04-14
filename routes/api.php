@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthCntroller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\WorkspacesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::post('register', [AuthCntroller::class , 'register']);
-Route::post('login', [AuthCntroller::class , 'login']);
-
-Route::middleware('auth:sanctum')->group(function (){
-   Route::get('user',[AuthCntroller::class , 'user']);
-   Route::put('updateProfile',[AuthCntroller::class , 'updateProfile']);
+Route::post('register', [AuthCntroller::class, 'register']);
+Route::post('login', [AuthCntroller::class, 'login']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('user', [AuthCntroller::class, 'user']);
+    Route::put('updateProfile', [AuthCntroller::class, 'updateProfile']);
+    Route::get('workspaces', [WorkspacesController::class, 'showData']);
+    Route::post('workspace', [WorkspacesController::class, 'store']);
 });
