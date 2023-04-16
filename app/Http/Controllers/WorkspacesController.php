@@ -10,9 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class WorkspacesController extends Controller
 {
-    public function index(Request  $request)
+    public function index(Request $request)
     {
-
     }
 
     public function store(CreateWorkspaceRequest $request)
@@ -20,7 +19,18 @@ class WorkspacesController extends Controller
         return Workspace::create($request->validated());
     }
 
-    public  function showData(){
+    public function update(Request $request, int $id)
+    {
+        $workspace = Workspace::query()->findOrFail($id);
+        $workspace->workspace = $request->string('workspace');
+        $workspace->save();
+        return response([
+            'workspace' => $workspace,
+        ], Response::HTTP_OK);
+    }
+
+    public function showData()
+    {
         info("Loading");
         $workspace = Workspace::all();
         return response([
@@ -28,4 +38,13 @@ class WorkspacesController extends Controller
         ], Response::HTTP_OK);
     }
 
+    public function destroy(int $id)
+    {
+        $reason = Workspace::query()->findOrFail($id);
+        try {
+            return response()->json(["success" => $reason->delete()]);
+        } catch (Exception $e) {
+            Log::debug("Error deleting workspace with ${id}: ".$e->getMessage());
+        }
+    }
 }

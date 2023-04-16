@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthCntroller;
+//use App\Http\Controllers\Tenant\BackupDriveController;
 use App\Http\Controllers\WorkspacesController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('updateProfile', [AuthCntroller::class, 'updateProfile']);
     Route::get('workspaces', [WorkspacesController::class, 'showData']);
     Route::post('workspace', [WorkspacesController::class, 'store']);
+    Route::delete('workspace/{id}', [WorkspacesController::class, 'destroy']);
+    Route::put('workspace/{id}', [WorkspacesController::class, 'update']);
+//    Route::apiResource('backupDrives', BackupDriveController::class)->only('store', 'index', 'show', 'update');
+
 });
