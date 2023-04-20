@@ -32,7 +32,7 @@ class WorkspacesController extends Controller
     public function showData()
     {
         info("Loading");
-        $workspace = Workspace::all();
+        $workspace = Workspace::query()->select('workspace','id',)->with('card')->get();
         return response([
             'data' => $workspace,
         ], Response::HTTP_OK);
