@@ -2,41 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Crad;
+use App\Http\Requests\CreateCardRequest;
+use App\Models\Card;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
 
-class CradController extends Controller
+class CardController extends Controller
 {
     public function index()
     {
-        return Crad::all();
+        return Card::all();
     }
 
-    public function store(Request $request)
+    public function store(CreateCardRequest $request)
     {
-        $request->validate([
-            'heading' => ['required'], 'body' => ['nullable'], 'workspace_id' => ['required', 'integer'],
-        ]);
-        return Crad::create($request->validated());
+        return Card::create($request->validated());
     }
 
-    public function show(Crad $crad)
+    public function show(Card $card)
     {
-        return $crad;
+        return $card;
     }
 
-    public function update(Request $request, Crad $crad)
+    public  function  getWorkspaceCard(int $id){
+        return Card::query()->select('id', 'heading', 'body')->where("workspace_id", $id)->get();
+}
+    public function update(Request $request, int $id)
     {
-        $request->validate([
-            'heading' => ['required'], 'body' => ['nullable'], 'workspace_id' => ['required', 'integer'],
-        ]);
-        $crad->update($request->validated());
-        return $crad;
+        $card = Card::query()->select('id', 'heading', 'body')->findOrFail($id);
+       $card->heading =  $request->string('heading');
+       $card->body = $request->string('body');
+       $card->save();
+       return response([
+           'data' => $card
+       ], Response::HTTP_OK);
+
     }
 
-    public function destroy(Crad $crad)
+    public function destroy(int $id)
     {
-        $crad->delete();
-        return response()->json();
+        $result = Card::query()->findOrFail($id);
+        try {
+            return response()->json(['Success' => $result->delete()]);
+        }catch(Exception $e) {
+            Log::debug("Error deleting card: ${id}" . $e->getMessage());
+        }
+
     }
 }

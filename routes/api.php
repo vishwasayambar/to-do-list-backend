@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthCntroller;
 //use App\Http\Controllers\Tenant\BackupDriveController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\WorkspacesController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('workspace', [WorkspacesController::class, 'store']);
     Route::delete('workspace/{id}', [WorkspacesController::class, 'destroy']);
     Route::put('workspace/{id}', [WorkspacesController::class, 'update']);
+    Route::post('cards', [CardController::class, 'store']);
+    Route::get('cards/{id}', [CardController::class, 'getWorkspaceCard']);
+    Route::put('cards/{id}', [CardController::class, 'update']);
+    Route::delete('cards/{id}', [CardController::class, 'destroy']);
 //    Route::apiResource('backupDrives', BackupDriveController::class)->only('store', 'index', 'show', 'update');
 
 });

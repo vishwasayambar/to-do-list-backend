@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Crad;
+use App\Models\Card;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CradFactory extends Factory
 {
-    protected $model = Crad::class;
+    protected $model = Card::class;
 
     public function definition(): array
     {

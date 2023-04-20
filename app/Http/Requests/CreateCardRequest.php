@@ -9,7 +9,9 @@ class CreateCardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'workspace' => ['string']
+            'heading' => ['required'],
+            'body' => ['nullable'],
+            'workspace_id' => ['required', 'integer']
         ];
     }
 

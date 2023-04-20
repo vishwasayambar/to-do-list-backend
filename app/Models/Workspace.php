@@ -16,5 +16,8 @@ class Workspace extends Model
         self::WORKSPACE,
     ];
 
-    //    public function
+        public function  card()
+        {
+            return $this->hasMany(Card::class);
+        }
 }
