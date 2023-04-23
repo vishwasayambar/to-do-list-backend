@@ -20,4 +20,8 @@ class Workspace extends Model
         {
             return $this->hasMany(Card::class);
         }
+
+        public static function search($searchText){
+            return self::query()->select('workspace', 'id')->where(self::WORKSPACE, 'LIKE',  '%'.$searchText.'%')->limit(5)->get();
+        }
 }
