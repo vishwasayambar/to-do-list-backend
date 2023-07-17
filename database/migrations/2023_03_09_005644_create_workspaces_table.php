@@ -9,8 +9,10 @@ return new class extends Migration {
     {
         Schema::create('workspaces', function (Blueprint $table) {
             $table->id()->unique();
+            $table->bigInteger('user_id')->unsigned();
             $table->string('workspace');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
