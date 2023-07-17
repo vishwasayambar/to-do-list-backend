@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Workspace extends Model
 {
     public const ID = 'id';
+    public const USER_ID = 'user_id';
     public const WORKSPACE = 'workspace';
 
     protected $casts = [
@@ -14,7 +15,9 @@ class Workspace extends Model
     ];
     protected $fillable = [
         self::WORKSPACE,
+        self::USER_ID,
     ];
+
 
         public function  card()
         {

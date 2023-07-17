@@ -16,12 +16,17 @@ class WorkspacesController extends Controller
 
     public function store(CreateWorkspaceRequest $request)
     {
-        return Workspace::create($request->validated());
+        Log::info('Creating'. auth()->id());
+         return  Workspace::create(array_merge($request->validated(), ['user_id' =>  auth()->id()]));
+
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request,  Workspace $workspace)
     {
-        $workspace = Workspace::query()->findOrFail($id);
+        if(!$request->user()->can('update', $workspace)){
+            abort("");
+        }
+
         $workspace->workspace = $request->string('workspace');
         $workspace->save();
         return response([
@@ -32,7 +37,7 @@ class WorkspacesController extends Controller
     public function showData()
     {
         info("Loading");
-        $workspace = Workspace::query()->select('workspace','id',)->with('card')->get();
+        $workspace = Workspace::query()->select('workspace','id',)->where('user_id', auth()->id())->with('card')->get();
         return response([
             'data' => $workspace,
         ], Response::HTTP_OK);

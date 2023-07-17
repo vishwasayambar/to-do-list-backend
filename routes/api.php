@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('workspaces', [WorkspacesController::class, 'showData']);
     Route::post('workspace', [WorkspacesController::class, 'store']);
     Route::delete('workspace/{id}', [WorkspacesController::class, 'destroy']);
-    Route::put('workspace/{id}', [WorkspacesController::class, 'update']);
+    Route::put('workspace/{workspace}', [WorkspacesController::class, 'update']);
     Route::post('cards', [CardController::class, 'store']);
     Route::get('cards/{id}', [CardController::class, 'getWorkspaceCard']);
     Route::put('cards/{id}', [CardController::class, 'update']);
